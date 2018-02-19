@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Pojo.User" >
+
+
+   <!-- private String Name;
+    private Integer UserId;
+    private String Password;
+    private Integer Money;-->
+
+
+
+
+    <resultMap id="user" type="Pojo.User">
+        <id column="UserId" property="Id" javaType="java.lang.Integer"></id>
+        <result column="UserName" property="Name" javaType="java.lang.String"></result>
+        <result column="UserPassword" property="Password" javaType="java.lang.String"></result>
+        <result column="UserMoney" property="Money" javaType="java.lang.Integer"></result>
+    </resultMap>
+
+<!--/* as u where u.UserName=#{Id} and  u.UserPassword=#{password}*/-->
+
+    <select id="getUserMessage"   resultMap="user"   parameterType="java.util.HashMap">
+        select  *  from user where UserId=#{Id} and UserPassword=#{password}
+    </select>
+
+
+
+    <select id="ManagerGetUser" resultMap="user" parameterType="java.lang.Integer">
+
+        select * from user limit #{page},5
+
+    </select>
+
+
+    <!--插入语句-->
+    <insert id="AddUser" parameterType="Pojo.User">
+
+        INSERT INTO user  (UserId,UserName, UserPassword)  VALUES (#{id},#{name}, #{password});
+
+    </insert>
+    
+    <!--验证用户是否存在！-->
+    
+    <select id="VerifyUserExist" parameterType="java.lang.String" resultType="java.lang.Integer">
+
+        SELECT count(*) from user where UserId=#{Id}
+
+    </select>
+
+    <!--根据用户Id查询用户信息-->
+    <select id="getUserById" parameterType="java.lang.Integer" resultMap="user">
+
+        select * from user where UserId=#{Id}
+
+    </select>
+
+
+    <!--根据用户Id更新用户-->
+
+    <update id="updateUserById" parameterType="Pojo.User">
+        update user set UserName=#{name},UserPassword=#{password},UserMoney=#{money} where UserId=#{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        delete from user where UserId=#{id}
+    </delete>
+
+
+
+     <!--付款时候更新用户的余额-->
+    <update id="UpdateUserCount" parameterType="java.util.Map">
+        update user set UserMoney=UserMoney-#{userMoney} where UserId=#{id}
+    </update>
+
+</mapper>

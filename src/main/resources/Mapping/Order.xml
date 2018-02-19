@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Pojo.Order" >
+
+
+    <!--    private Integer OrderUserId;
+    private List<Book> OrderBookList=new ArrayList<Book>();
+     private Integer OrderBookId;
+    private Integer UserId;
+
+    -->
+
+
+    <resultMap id="Orders" type="Pojo.Order">
+        <result property="OrderBookId" column="OrderBookId"></result>
+        <result property="UserId" column="UserId"></result>
+        <collection property="OrderBookList" ofType="Pojo.Book">
+            <id column="BookId" property="BookId"></id>
+            <result column="BookName" property="BookName"></result>
+            <result column="BookAcount" property="Account"></result>
+            <result column="BookPrice" property="BookPrice"></result>
+        </collection>
+    </resultMap>
+
+
+
+    <!--根据用户Id获取订单消息-->
+    <select id="getOrderList" resultMap="Orders" parameterType="java.lang.Integer">
+
+       select * from book where book.BookId in(select orders.OrderBookId from orders where orders.UserId=#{id})
+
+    </select>
+
+
+    <!--加入购物车-->
+    <insert id="InserOrder" parameterType="java.util.Map">
+        insert into orders VALUES (#{bookId},#{userId})
+    </insert>
+
+
+
+    <!--删除购物车-->
+    <delete id="deleteOrderByUserIdAndOrderId" parameterType="java.util.Map">
+
+        delete from orders where OrderBookId=#{bookId} and UserId=#{userId}
+
+    </delete>
+
+
+
+
+</mapper>

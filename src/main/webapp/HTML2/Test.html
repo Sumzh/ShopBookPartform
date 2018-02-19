@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+</head>
+<style type="text/css">
+    *{margin: 0;padding: 0}
+    a{text-decoration: none}
+    a:hover{text-decoration: none}
+    dl *{display: inline-block}
+    ul{width: 300px;height: 200px; border: solid 1px #95e4ca}
+    .MyA{display: inline-block;width: 100px;height: 200px;background-color: #e4d06d}
+    .MyLink{width: 300px;height: 200px;overflow: scroll;border: solid 1px #9be4b5;position: relative}
+    ul{list-style: none}
+    li{display: block;width:50px;height: 50px;border: solid 1px indianred}
+    #bottomdiv{display: block;position: fixed;left: 2px;bottom: 2px;}
+    #bottomdiv a {display: inline-block;width: 30px;height: 30px;background-color: #5ce432}
+</style>
+<body>
+
+<a data_id="32" id="A1" href="javascript:void (0);" onclick="testMyAttr(this)">aaa</a>
+
+<dl>
+    <dt>列表标题</dt>
+    <dd>列表内容</dd>
+    <dd>列表内容</dd>
+
+</dl>
+
+<dl>
+    <dt>列表标题</dt>
+    <dd>列表内容</dd>
+    <dd>列表内容</dd>
+
+</dl>
+
+<ul></ul>
+
+<a class="MyA" href="https://www.baidu.com" target="_blank"></a>
+
+<div class="MyLink">
+
+  <ul>
+
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+      <li><a>1</a></li>
+  </ul>
+
+
+
+</div>
+
+
+
+<div style="height:200px;line-height:40px;border: solid 1px #9be4b5;vertical-align: top">
+   abc<br/>abc<br/>abc<br/>abc<br/>abc<br/></div>
+<div  style="height:auto;line-height:40px;border: solid 1px #9be4b5;vertical-align: bottom">
+    <img src="../img/Aladdin.png" style="vertical-align: bottom;"/>abc
+    </br>
+    <img src="../img/Aladdin.png"/>
+    </br>
+    <img src="../img/Aladdin.png"/>
+
+</div>
+
+<div style="width: 300px;height: 300px;border:solid 1px red;text-align: center;">aaa</div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+
+    function testMyAttr(obj){
+        var attrs=$(obj).attr("data_id");
+        alert(attrs);
+
+    }
+
+
+</script>
+</html>

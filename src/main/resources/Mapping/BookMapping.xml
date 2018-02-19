@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Pojo.Book" >
+
+
+    <!--
+    private Integer BookPrice;
+    private String BookName;
+    private Integer Account;-->
+
+
+
+
+    <resultMap id="book" type="Pojo.Book">
+        <result column="BookId" property="BookId"></result>
+        <result column="BookName" property="BookName"></result>
+        <result column="BookAcount" property="Account"></result>
+        <result column="BookPrice" property="BookPrice"></result>
+    </resultMap>
+
+    <select id="GetAll" resultType="java.lang.Integer">
+
+        select count(*) from book;
+
+    </select>
+
+    <select id="getMessagePagging" resultMap="book" >
+
+        select * from book limit 0,50
+
+    </select>
+
+
+    <select id="getMessageManager" resultMap="book" parameterType="java.lang.Integer">
+
+        select * from book limit #{page},5
+
+    </select>
+
+
+
+    <select id="getBookMessageById" resultMap="book" parameterType="java.lang.Integer">
+
+        select * from book where BookId=#{Id}
+
+    </select>
+
+
+    <!--更新书本信息-->
+
+    <update id="updateBook" parameterType="Pojo.Book">
+        update book set BookId=#{bookId},BookAcount=#{account},BookPrice=#{bookPrice} where BookId=#{bookId}
+    </update>
+
+    <!--删除书本-->
+
+    <delete id="deleteBookById" parameterType="java.lang.Integer">
+
+        delete from book where BookId=#{Id}
+
+    </delete>
+
+
+
+    <!--结账时候更新书本的数量,批量更新-->
+
+    <!--List 如果书本的大于2就执行这一条 -->
+    <update id="UpdateBookCount" parameterType="java.util.List">
+
+
+            update book
+            <set>
+                BookAcount=BookAcount-1
+            </set>
+
+        where
+        <if test="list!=null and list.size>1">
+        <foreach collection="list" item="item" index="index" open="(" separator="or" close=")">
+           BookId =#{item}
+        </foreach>
+        </if>
+
+
+
+
+    </update>
+
+
+    <update id="UpdateBookCount2" parameterType="java.lang.Integer">
+        update book set  BookAcount=BookAcount-1 where BookId=#{bookId}
+
+    </update>
+
+
+
+
+
+</mapper>
